@@ -1,13 +1,6 @@
-import LoginForm from '../components/forms/LoginForm'
-import RegistrationForm from '../components/forms/RegistrationForm'
+// Deprecated: kept for compatibility. Routing now uses /login and /register.
 
-const AuthPage = ({ onAuthenticated }) => {
-  return (
-    <main className="two-column-page">
-      <RegistrationForm onAuthenticated={onAuthenticated} />
-      <LoginForm onAuthenticated={onAuthenticated} />
-    </main>
-  )
-}
+const AuthPage = () => null
 
 export default AuthPage
+

@@ -116,6 +116,12 @@ button {
   box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
 }
 
+/* NavLink should behave like a button */
+.tabs .tab {
+  text-decoration: none;
+}
+
+
 .tab {
   border: 0;
   border-radius: 14px;
@@ -125,7 +131,9 @@ button {
   font-size: 14px;
   font-weight: 800;
   transition: all 180ms ease;
+  display: inline-block;
 }
+
 
 .tab:hover {
   background: #f1f5f9;
@@ -144,11 +152,23 @@ button {
   grid-template-columns: minmax(0, 1fr) minmax(360px, 0.78fr);
   gap: 24px;
   align-items: start;
+  margin-top: 10px;
 }
+
 
 .single-page {
   max-width: 880px;
 }
+
+.single-column-auth {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.auth-panel {
+  padding: 24px;
+}
+
 
 .task-page {
   grid-template-columns: 420px minmax(0, 1fr);

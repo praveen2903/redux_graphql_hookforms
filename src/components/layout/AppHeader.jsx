@@ -1,20 +1,19 @@
+import { NavLink } from 'react-router-dom'
+
 const tabs = [
-  { id: 'auth', label: 'Register / Login' },
-  { id: 'profile', label: 'Profile' },
-  { id: 'todos', label: 'Skill Tasks' },
-  { id: 'users', label: 'Users Store' },
+  { to: '/login', label: 'Login' },
+  { to: '/register', label: 'Register' },
+  { to: '/profile', label: 'Profile' },
+  { to: '/todos', label: 'Skill Tasks' },
+  { to: '/users', label: 'Users Store' },
 ]
 
-const AppHeader = ({ activeTab, onTabChange, user }) => {
+const AppHeader = ({ user }) => {
   return (
     <header className="app-header">
       <div className="hero-copy">
         <span className="eyebrow">React Vite full-stack JS app</span>
-        <h1>GraphQL auth, Redux reducers, profile skills and task todos.</h1>
-        <p>
-          A separated client and server setup using React Hook Form, Zod validation,
-          Apollo GraphQL and Redux Toolkit.
-        </p>
+        <h4>GraphQL auth, Redux reducers, profile skills and task todos.</h4>
       </div>
 
       <div className="session-card">
@@ -31,14 +30,13 @@ const AppHeader = ({ activeTab, onTabChange, user }) => {
 
       <nav className="tabs" aria-label="Application pages">
         {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            type="button"
-            className={`tab ${activeTab === tab.id ? 'active' : ''}`}
-            onClick={() => onTabChange(tab.id)}
+          <NavLink
+            key={tab.to}
+            to={tab.to}
+            className={({ isActive }) => `tab ${isActive ? 'active' : ''}`}
           >
             {tab.label}
-          </button>
+          </NavLink>
         ))}
       </nav>
     </header>
@@ -46,3 +44,6 @@ const AppHeader = ({ activeTab, onTabChange, user }) => {
 }
 
 export default AppHeader
+
+
+
