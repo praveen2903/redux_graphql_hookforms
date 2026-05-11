@@ -7,8 +7,10 @@ import { ADD_SKILL } from '../../graphql/mutations'
 import { updateCurrentUser } from '../../store/slices/authSlice'
 import { upsertUser } from '../../store/slices/usersSlice'
 import { addSkillSchema } from '../../validation/schemas'
+import { setAuth } from '../../utils/authStorage'
 
 const AddSkillForm = ({ user }) => {
+
   const dispatch = useDispatch()
   const [message, setMessage] = useState(null)
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
@@ -20,9 +22,15 @@ const AddSkillForm = ({ user }) => {
     onCompleted: ({ addSkill: updatedUser }) => {
       dispatch(updateCurrentUser(updatedUser))
       dispatch(upsertUser(updatedUser))
-      const saved = JSON.parse(localStorage.getItem('devportal_auth') || 'null')
-      if (saved?.token) localStorage.setItem('devportal_auth', JSON.stringify({ ...saved, user: updatedUser }))
+
+      // keep stored session user in sync
+      setAuth((prev) => {
+        if (!prev?.token) return prev
+        return { ...prev, user: updatedUser }
+      })
+
       reset()
+
       setMessage({ type: 'success', text: 'Skill added to profile.' })
     },
     onError: (error) => setMessage({ type: 'error', text: error.message }),

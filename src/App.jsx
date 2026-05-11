@@ -12,6 +12,7 @@ import TodosPage from './pages/TodosPage'
 import UsersPage from './pages/UsersPage'
 import RequireAuth from './routes/RequireAuth'
 import DefaultRedirect from './routes/DefaultRedirect'
+import { clearAuth } from './utils/authStorage'
 import './styles/app.css'
 
 const AppShell = () => {
@@ -24,10 +25,9 @@ const AppShell = () => {
     if (token) logoutUser({ variables: { token } }).catch(() => {})
     dispatch(logout())
     dispatch(clearSkillTodos())
-    localStorage.removeItem('devportal_auth')
+    clearAuth()
     navigate('/login', { replace: true })
   }
-
 
   return (
     <div className="app-shell">
@@ -36,13 +36,9 @@ const AppShell = () => {
 
         <Routes>
           <Route path="/" element={<DefaultRedirect />} />
-
-
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-
           <Route path="/auth" element={<Navigate to="/login" replace />} />
-
 
           <Route
             path="/profile"
@@ -63,7 +59,6 @@ const AppShell = () => {
           />
 
           <Route path="/users" element={<UsersPage />} />
-
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
 
@@ -79,5 +74,6 @@ const AppShell = () => {
 const App = () => <AppShell />
 
 export default App
+
 
 

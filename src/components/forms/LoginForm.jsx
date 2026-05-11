@@ -7,6 +7,9 @@ import { LOGIN_USER } from '../../graphql/mutations'
 import { setCredentials } from '../../store/slices/authSlice'
 import { upsertUser } from '../../store/slices/usersSlice'
 import { loginSchema } from '../../validation/schemas'
+import { setAuth } from '../../utils/authStorage'
+
+
 
 const LoginForm = ({ onAuthenticated }) => {
   const dispatch = useDispatch()
@@ -26,7 +29,8 @@ const LoginForm = ({ onAuthenticated }) => {
     onCompleted: ({ loginUser: payload }) => {
       dispatch(setCredentials(payload))
       dispatch(upsertUser(payload.user))
-      localStorage.setItem('devportal_auth', JSON.stringify(payload))
+      setAuth(payload)
+
       setMessage({ type: 'success', text: payload.message })
       onAuthenticated('profile')
     },

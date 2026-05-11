@@ -1,18 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-
-const readSavedAuth = () => {
-  try {
-    return JSON.parse(localStorage.getItem('devportal_auth') || 'null')
-  } catch {
-    return null
-  }
-}
-
-const savedAuth = readSavedAuth()
+import { getCurrentUserFromStorage, getToken } from '../../utils/authStorage'
 
 const initialState = {
-  user: savedAuth?.user || null,
-  token: savedAuth?.token || null,
+  user: getCurrentUserFromStorage(),
+  token: getToken(),
   loading: false,
   error: null,
 }
@@ -47,4 +38,6 @@ const authSlice = createSlice({
 })
 
 export const { setCredentials, updateCurrentUser, logout, setAuthLoading, setAuthError } = authSlice.actions
+
 export default authSlice.reducer
+

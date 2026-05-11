@@ -7,8 +7,8 @@ import SkillTodoList from '../components/todos/SkillTodoList'
 import { setSkillTodos, setSkillTodosError, setSkillTodosLoading } from '../store/slices/skillTodosSlice'
 
 const TodosPage = () => {
-  const dispatch = useDispatch()
-  const { user } = useSelector((state) => state.auth)
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
   const { data, loading, error, refetch } = useQuery(GET_SKILL_TODOS, {
     variables: { userId: user?.id || '' },
     skip: !user?.id,

@@ -23,7 +23,7 @@ async function startServer() {
   app.use(bodyParser.json());
 
   app.use(
-    '/graphql',
+    '/graphql',    //single endpoint in graphql only
     expressMiddleware(apolloServer, {
       context: async ({ req }) => ({
         currentUser: getCurrentUser(req.headers.authorization || ''),

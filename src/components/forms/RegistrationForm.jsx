@@ -6,6 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { REGISTER_USER } from '../../graphql/mutations'
 import { setCredentials } from '../../store/slices/authSlice'
 import { upsertUser } from '../../store/slices/usersSlice'
+import { setAuth } from '../../utils/authStorage'
+
 import { registrationSchema } from '../../validation/schemas'
 import CustomSelect from './CustomSelect'
 
@@ -56,7 +58,8 @@ const RegistrationForm = ({ onAuthenticated }) => {
     onCompleted: ({ registerUser: payload }) => {
       dispatch(setCredentials(payload))
       dispatch(upsertUser(payload.user))
-      localStorage.setItem('devportal_auth', JSON.stringify(payload))
+      setAuth(payload)
+
       reset()
       setMessage({ type: 'success', text: payload.message })
       onAuthenticated('profile')
